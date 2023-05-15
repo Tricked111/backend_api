@@ -12,7 +12,7 @@ paths:
   /jobs/{job_id}/run:
     post:
       tags:
-        - "New"
+        - "New Job"
       summary: Start job
       parameters:
         - name: job_id
@@ -27,7 +27,7 @@ paths:
   /jobs/{job_id}/disable:
     post:
       tags:
-        - "New"
+        - "New Job"
       summary: Disable job
       parameters:
         - name: job_id
@@ -42,7 +42,7 @@ paths:
   /jobs/{job_id}/enable:
     post:
       tags:
-        - "New"
+        - "New Job"
       summary: Enable job
       parameters:
         - name: job_id
@@ -58,7 +58,7 @@ paths:
   /jobs/{job_id}/delete:
     delete:
       tags:
-        - "New"
+        - "New Job"
       summary: Delete job
       parameters:
         - name: job_id
@@ -73,7 +73,7 @@ paths:
   /jobs/{job_id}/builds/{build_id}/logs:
     get:
       tags:
-        - "New"
+        - "New Job"
       summary: Get the build logs
       parameters:
             - name: job_id
@@ -92,6 +92,87 @@ paths:
       responses:
         '200':
           description: successful request
+  
+  
+  
+  /reservation/create:
+    post:
+      tags:
+      - "New Reservation"
+      summary: Create reservation
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: '#/components/schemas/ReservationInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /reservation/{res_id}/:
+    get:
+      tags:
+      - "New Reservation"
+      summary: Get info about a specific reservation
+      parameters:
+        - name: res_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  
+  /reservation/{res_id}/update:
+    post:
+      tags:
+      - "New Reservation"
+      summary: Update info about a specific reservation
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      requestBody:
+        required: true
+        content:
+          application/json:
+           schema:
+            $ref: '#/components/schemas/ReservationInput'
+      responses:
+        '201':
+          description: Updated
+        '400':
+          description: Bad Request
+  
+  /reservation/{res_id}/delete:
+    delete:
+      tags:
+      - "New Reservation"
+      summary: Update info about a specific reservation
+      parameters:
+        - name: job_id
+          in: path
+          required: true
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '201':
+          description: Deleted
+        '400':
+          description: Bad Request
+  
+  
+  
   /views:
     get:
       tags:
@@ -216,3 +297,23 @@ paths:
       responses:
         '200':
           description: successful request
+
+components:
+  schemas:
+    ReservationInput:
+      type: object
+      properties:
+        name:
+          type: string
+        dateStart:
+          type: string
+          format: date
+        dateEnd:
+          type: string
+          format: date
+        timeStart:
+          type: string
+          format: time
+        timeEnd:
+          type: string
+          format: time-offset

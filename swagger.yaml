@@ -9,6 +9,7 @@ servers:
     description: Develop server
 
 paths:
+  
   /jobs/{job_id}/run:
     post:
       tags:
@@ -95,29 +96,23 @@ paths:
   
   
   
-  /reservation/create:
-    post:
-      tags:
-      - "New Reservation"
-      summary: Create reservation
-      requestBody:
-        required: true
-        content:
-          application/json:
-           schema:
-            $ref: '#/components/schemas/ReservationInput'
-      responses:
-        '201':
-          description: Created
-        '400':
-          description: Bad Request
-  /reservation/{res_id}/:
+  /blocks:
     get:
       tags:
-      - "New Reservation"
-      summary: Get info about a specific reservation
+      - "New Blocks"
+      summary: Get block list
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+  /blocks/{block_id}:
+    get:
+      tags:
+      - "New Blocks"
+      summary: Get info about a specific block
       parameters:
-        - name: res_id
+        - name: block_id
           in: path
           required: true
           schema:
@@ -129,37 +124,13 @@ paths:
         '400':
           description: Bad Request
   
-  /reservation/{res_id}/update:
+  /blocks/{block_id}/free:
     post:
       tags:
-      - "New Reservation"
-      summary: Update info about a specific reservation
+      - "New Blocks"
+      summary: Free the block from Jobs
       parameters:
-        - name: job_id
-          in: path
-          required: true
-          schema:
-            type: integer
-            format: int32
-      requestBody:
-        required: true
-        content:
-          application/json:
-           schema:
-            $ref: '#/components/schemas/ReservationInput'
-      responses:
-        '201':
-          description: Updated
-        '400':
-          description: Bad Request
-  
-  /reservation/{res_id}/delete:
-    delete:
-      tags:
-      - "New Reservation"
-      summary: Update info about a specific reservation
-      parameters:
-        - name: job_id
+        - name: block_id
           in: path
           required: true
           schema:
@@ -167,12 +138,9 @@ paths:
             format: int32
       responses:
         '201':
-          description: Deleted
+          description: The block was released
         '400':
           description: Bad Request
-  
-  
-  
   /views:
     get:
       tags:

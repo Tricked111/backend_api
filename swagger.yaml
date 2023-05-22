@@ -9,7 +9,6 @@ servers:
     description: Develop server
 
 paths:
-  
   /jobs/{job_id}/run:
     post:
       tags:
